@@ -1,0 +1,7 @@
+type: module
+name: Server Block
+description: 'Block-related logic'
+package: Server
+core: 8.x
+dependencies:
+  - block
