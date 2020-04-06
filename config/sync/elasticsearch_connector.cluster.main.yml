@@ -1,0 +1,14 @@
+uuid: 7b42af78-63e1-4318-a499-a7ab624d3e21
+langcode: en
+status: '1'
+dependencies: {  }
+cluster_id: main
+name: main
+url: 'https://drupal-static-elasticsearch.ddev.site:9201'
+options:
+  multiple_nodes_connection: false
+  use_authentication: 0
+  authentication_type: Basic
+  username: ''
+  password: ''
+  timeout: '3'

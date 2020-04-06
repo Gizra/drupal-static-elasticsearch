@@ -1,0 +1,24 @@
+uuid: 3caa798c-7594-4fac-8edd-8a97837c1425
+langcode: en
+status: true
+dependencies:
+  module:
+    - elasticsearch_connector
+id: main
+name: Main
+description: ''
+backend: elasticsearch
+backend_config:
+  cluster_settings:
+    cluster: main
+  fuzziness: auto
+  scheme: http
+  host: localhost
+  port: '9200'
+  path: ''
+  excerpt: false
+  retrieve_data: false
+  highlight_data: false
+  http_method: AUTO
+  autocorrect_spell: true
+  autocorrect_suggest_words: true
