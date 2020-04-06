@@ -14,3 +14,7 @@ hooks:
     # Install profile
     - exec: drush site-install server -y --existing-config
     - exec: drush uli
+
+
+# Install `httrack` inside DDEV.
+webimage_extra_packages: [httrack]
