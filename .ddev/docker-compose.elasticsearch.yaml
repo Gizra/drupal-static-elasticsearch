@@ -18,7 +18,7 @@ services:
 
       # Allow CORS
       - http.cors.enabled=true
-      - http.cors.allow-origin=https://drupal-static-elasticsearch.ddev.site:4443
+      - http.cors.allow-origin=https://drupal-static-elasticsearch.ddev.site:4443,http://drupal-static-elasticsearch.ddev.site:8880
       - http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
       - http.cors.allow-credentials=true
     labels:
