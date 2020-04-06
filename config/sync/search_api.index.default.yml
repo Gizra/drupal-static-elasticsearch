@@ -1,0 +1,35 @@
+uuid: 4e749ffa-9a41-45bd-8ee5-fe47bce2d48c
+langcode: en
+status: true
+dependencies:
+  config:
+    - search_api.server.main
+  module:
+    - search_api
+    - node
+id: default
+name: Default
+description: ''
+read_only: false
+field_settings: {  }
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - article
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  language_with_fallback: {  }
+  rendered_item: {  }
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  index_directly: true
+  cron_limit: 50
+server: main
