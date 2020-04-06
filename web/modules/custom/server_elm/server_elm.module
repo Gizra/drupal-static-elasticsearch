@@ -8,7 +8,9 @@
 /**
  * Implements hook_preprocess_HOOK().
  *
- * @todo: Why is this needed?
+ * @todo: Why is this needed, as we already have
+ * \Drupal\server_elm\Plugin\Block\ElmAppBlock::build that tries to attach
+ * library.
  */
 function server_elm_preprocess_block(&$variables) {
   if ($variables['configuration']['provider'] != 'server_elm') {
