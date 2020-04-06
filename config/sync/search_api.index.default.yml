@@ -38,6 +38,14 @@ field_settings:
     dependencies:
       module:
         - node
+  type:
+    label: 'Content type'
+    datasource_id: 'entity:node'
+    property_path: type
+    type: string
+    dependencies:
+      module:
+        - node
 datasource_settings:
   'entity:node':
     bundles:

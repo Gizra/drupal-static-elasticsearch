@@ -35,27 +35,17 @@ update searchUrl msg model =
                 modelUpdated =
                     modelSetLoading (\model_ dict -> { model_ | items = PaginatedData.setPageAsLoading () pageNumber dict })
 
-                -- Get all jobs, and create an aggregation of the "ID".
                 queryString =
                     """
 {
-	"aggs" : {
-    	"id_filter" : {
-        	"terms" : {
-        	    "field" : "id",
-        	    "size" : 10
-            }
-    	}
-	},
     "query": {
         "term": {
             "aggregated_entity_bundle": {
-                "value": "job"
+                "value": "article"
             }
         }
     }
 }
-
                     """
 
                 -- We get 10 items back from ES, so we will set the offset by.
