@@ -7054,7 +7054,7 @@ var $author$project$Backend$Item$Update$update = F3(
 		var noChange = A4($author$project$Backend$Types$BackendReturn, model, $elm$core$Platform$Cmd$none, $author$project$Error$Utils$noError, _List_Nil);
 		if (msg.$ === 'Fetch') {
 			var pageNumber = msg.a;
-			var queryString = '\n{\n    "query": {\n        "term": {\n            "aggregated_entity_bundle": {\n                "value": "article"\n            }\n        }\n    }\n}\n                    ';
+			var queryString = '\n{\n    "query": {\n        "term": {\n            "type": {\n                "value": "article"\n            }\n        }\n    }\n}\n                    ';
 			var queryParams = _List_fromArray(
 				[
 					_Utils_Tuple2(

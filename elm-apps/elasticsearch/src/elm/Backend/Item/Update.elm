@@ -40,7 +40,7 @@ update searchUrl msg model =
 {
     "query": {
         "term": {
-            "aggregated_entity_bundle": {
+            "type": {
                 "value": "article"
             }
         }
