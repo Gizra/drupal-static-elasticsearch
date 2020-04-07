@@ -11,6 +11,7 @@ module:
   contextual: 0
   datetime: 0
   dblog: 0
+  devel_generate: 0
   dynamic_page_cache: 0
   editor: 0
   elasticsearch_connector: 0
