@@ -7,7 +7,7 @@ dependencies:
 id: node_title
 label: 'Node title'
 type: 'canonical_entities:node'
-pattern: 'content/[node:title]'
+pattern: 'content/[node:title]/index.html'
 selection_criteria: {  }
 selection_logic: and
 weight: 0
