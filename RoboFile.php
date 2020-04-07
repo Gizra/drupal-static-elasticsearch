@@ -17,6 +17,7 @@ class RoboFile extends \Robo\Tasks
     $wgetExportDirectory = $this::WGET_EXPORT_DIRECTORY;
 
     // We don't stop on fail, as we get error code 8.
+    $this->_exec("ddev . drush cr");
     $this->_exec("wget --directory-prefix=$wgetExportDirectory --mirror --page-requisites --convert-links --adjust-extension --span-hosts --restrict-file-names=windows --no-parent $siteUrl");
 
     $this->taskExecStack()

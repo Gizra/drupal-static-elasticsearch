@@ -69,12 +69,13 @@ viewItems language modelBackend dataAndPager model =
                         (\( _, item ) ->
                             let
                                 -- Remove the `index.html` suffix, so we'd get clean
-                                -- urls
+                                -- urls.
+                                -- @todo: String.replace "/index.html" "/" item.url
                                 itemUrl =
-                                    String.replace "/index.html" "/" item.url
+                                    String.replace "index.html" "" item.url
                             in
                             li []
-                                [ a [ href <| itemUrl ] [ text item.label ]
+                                [ a [ href itemUrl ] [ text <| item.label ]
                                 ]
                         )
                 )

@@ -7557,7 +7557,7 @@ var $author$project$Pages$Search$View$viewItems = F4(
 						$elm$core$List$map,
 						function (_v0) {
 							var item = _v0.b;
-							var itemUrl = A3($elm$core$String$replace, '/index.html', '/', item.url);
+							var itemUrl = A3($elm$core$String$replace, 'index.html', '', item.url);
 							return A2(
 								$elm$html$Html$li,
 								_List_Nil,
