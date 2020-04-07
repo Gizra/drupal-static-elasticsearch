@@ -23,6 +23,7 @@
         "nodespark/des-connector": "dev-master"
     },
     "require-dev": {
+        "consolidation/robo": "~1"
     },
     "conflict": {
         "drupal/drupal": "*"
