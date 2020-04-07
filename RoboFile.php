@@ -16,9 +16,11 @@ class RoboFile extends \Robo\Tasks
     $siteUrl = $this::SITE_URL;
     $wgetExportDirectory = $this::WGET_EXPORT_DIRECTORY;
 
+    // We don't stop on fail, as we get error code 8.
+    $this->_exec("wget --directory-prefix=$wgetExportDirectory --mirror --page-requisites --convert-links --adjust-extension --span-hosts --restrict-file-names=windows --no-parent $siteUrl");
+
     $this->taskExecStack()
       ->stopOnFail()
-      ->exec("wget --directory-prefix=$wgetExportDirectory --mirror --page-requisites --convert-links --adjust-extension --span-hosts --restrict-file-names=windows --no-parent $siteUrl")
       ->exec("find $wgetExportDirectory -type f -exec sed -i -e \"s/\/index.html/\//g\" {} \;")
       ->run();
 
