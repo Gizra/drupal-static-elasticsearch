@@ -7566,7 +7566,7 @@ var $author$project$Pages$Search$View$viewItems = F4(
 										$elm$html$Html$a,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$href(item.url + '/')
+												$elm$html$Html$Attributes$href(item.url)
 											]),
 										_List_fromArray(
 											[

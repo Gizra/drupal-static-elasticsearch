@@ -10,12 +10,16 @@ class RoboFile extends \Robo\Tasks
 
   const SITE_URL = 'https://drupal-static-elasticsearch.ddev.site:4443';
 
+  const WGET_EXPORT_DIRECTORY = '.wget-export';
+
   public function staticExport() {
     $siteUrl = $this::SITE_URL;
+    $wgetExportDirectory = $this::WGET_EXPORT_DIRECTORY;
 
     $this->taskExecStack()
       ->stopOnFail()
-      ->exec("wget -NmkEpnp $siteUrl")
+      ->exec("wget --directory-prefix=$wgetExportDirectory --mirror --page-requisites --convert-links --adjust-extension --span-hosts --restrict-file-names=windows --no-parent $siteUrl")
+      ->exec("find $wgetExportDirectory -type f -exec sed -i -e \"s/\/index.html/\//g\" {} \;")
       ->run();
 
   }

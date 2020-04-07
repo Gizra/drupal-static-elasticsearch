@@ -68,8 +68,7 @@ viewItems language modelBackend dataAndPager model =
                     |> List.map
                         (\( _, item ) ->
                             li []
-                                -- Trailing backslash is needed for the URL.
-                                [ a [ href <| item.url ++ "/" ] [ text item.label ]
+                                [ a [ href <| item.url ] [ text item.label ]
                                 ]
                         )
                 )
