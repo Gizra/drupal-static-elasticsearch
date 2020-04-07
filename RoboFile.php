@@ -15,7 +15,7 @@ class RoboFile extends \Robo\Tasks
 
     $this->taskExecStack()
       ->stopOnFail()
-      ->exec("httrack $siteUrl -O ../ -N \"%h%p/%n/index%[page].%t\" --display --robots=0 --footer '' --verbose")
+      ->exec("httrack $siteUrl -O ../.httrack-export -N \"%h%p/%n/index%[page].%t\" --display --robots=0 --verbose")
       ->run();
 
   }

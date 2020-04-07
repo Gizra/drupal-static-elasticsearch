@@ -68,7 +68,7 @@ viewItems language modelBackend dataAndPager model =
                     |> List.map
                         (\( itemId, item ) ->
                             li []
-                                [ a [ href <| "/node/" ++ String.fromInt (fromEntityId itemId) ] [ text item.label ]
+                                [ a [ href <| "/node/" ++ String.fromInt (fromEntityId itemId) ++ "/" ] [ text item.label ]
                                 ]
                         )
                 )

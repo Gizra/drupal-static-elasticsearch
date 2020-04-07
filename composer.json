@@ -19,6 +19,7 @@
         "drupal/core-composer-scaffold": "^8.8",
         "drupal/core-recommended": "^8.8",
         "drupal/devel": "^2.1",
+        "drupal/pathauto": "^1.6",
         "drush/drush": "^10.2",
         "nodespark/des-connector": "dev-master"
     },

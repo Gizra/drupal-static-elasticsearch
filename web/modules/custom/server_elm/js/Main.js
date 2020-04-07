@@ -7567,8 +7567,8 @@ var $author$project$Pages$Search$View$viewItems = F4(
 										_List_fromArray(
 											[
 												$elm$html$Html$Attributes$href(
-												'/node/' + $elm$core$String$fromInt(
-													$author$project$Restful$Endpoint$fromEntityId(itemId)))
+												'/node/' + ($elm$core$String$fromInt(
+													$author$project$Restful$Endpoint$fromEntityId(itemId)) + '/'))
 											]),
 										_List_fromArray(
 											[
