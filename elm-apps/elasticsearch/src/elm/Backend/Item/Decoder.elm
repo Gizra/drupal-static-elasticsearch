@@ -12,6 +12,7 @@ decodeItem =
     succeed Item
         |> required "_id" decodeEntityIdFromString
         |> requiredAt [ "_source", "title", "0" ] string
+        |> requiredAt [ "_source", "url", "0" ] string
 
 
 {-| Get the entity ID, from string such as "entity:node/101:en". We want to

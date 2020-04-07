@@ -66,9 +66,10 @@ viewItems language modelBackend dataAndPager model =
                 (PaginatedData.getItemsByPager () dataAndPager model.page
                     |> Dict.toList
                     |> List.map
-                        (\( itemId, item ) ->
+                        (\( _, item ) ->
                             li []
-                                [ a [ href <| "/node/" ++ String.fromInt (fromEntityId itemId) ++ "/" ] [ text item.label ]
+                                -- Trailing backslash is needed for the URL.
+                                [ a [ href <| item.url ++ "/" ] [ text item.label ]
                                 ]
                         )
                 )
