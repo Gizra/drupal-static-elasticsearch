@@ -7557,6 +7557,7 @@ var $author$project$Pages$Search$View$viewItems = F4(
 						$elm$core$List$map,
 						function (_v0) {
 							var item = _v0.b;
+							var itemUrl = A3($elm$core$String$replace, '/index.html', '/', item.url);
 							return A2(
 								$elm$html$Html$li,
 								_List_Nil,
@@ -7566,7 +7567,7 @@ var $author$project$Pages$Search$View$viewItems = F4(
 										$elm$html$Html$a,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$href(item.url)
+												$elm$html$Html$Attributes$href(itemUrl)
 											]),
 										_List_fromArray(
 											[

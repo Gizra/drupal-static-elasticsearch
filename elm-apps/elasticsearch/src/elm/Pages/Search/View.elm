@@ -67,8 +67,14 @@ viewItems language modelBackend dataAndPager model =
                     |> Dict.toList
                     |> List.map
                         (\( _, item ) ->
+                            let
+                                -- Remove the `index.html` suffix, so we'd get clean
+                                -- urls
+                                itemUrl =
+                                    String.replace "/index.html" "/" item.url
+                            in
                             li []
-                                [ a [ href <| item.url ] [ text item.label ]
+                                [ a [ href <| itemUrl ] [ text item.label ]
                                 ]
                         )
                 )
