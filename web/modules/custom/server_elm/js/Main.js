@@ -5557,7 +5557,7 @@ var $elm$core$List$filterMap = F2(
 			xs);
 	});
 var $author$project$Pages$Search$Fetch$fetch = F3(
-	function (searchUrl, modelBackend, model) {
+	function (_v0, modelBackend, model) {
 		var itemsPager = A3(
 			$author$project$PaginatedData$fetchPaginated,
 			_Utils_Tuple2(_Utils_Tuple0, modelBackend.items),
@@ -5576,7 +5576,7 @@ var $author$project$App$Fetch$fetch = function (model) {
 			function (subMsg) {
 				return $author$project$App$Model$MsgBackend(subMsg);
 			},
-			A3($author$project$Pages$Search$Fetch$fetch, model.searchUrl, model.backend, model.pageSearch));
+			A3($author$project$Pages$Search$Fetch$fetch, model.searchUrlAndIndexName, model.backend, model.pageSearch));
 	} else {
 		return _List_Nil;
 	}
@@ -5608,7 +5608,7 @@ var $author$project$App$Model$emptyModel = {
 	errors: _List_Nil,
 	language: $author$project$App$Types$English,
 	pageSearch: $author$project$Pages$Search$Model$emptyModel,
-	searchUrl: ''
+	searchUrlAndIndexName: _Utils_Tuple2('', '')
 };
 var $elm$time$Time$Name = function (a) {
 	return {$: 'Name', a: a};
@@ -5625,7 +5625,9 @@ var $elm$time$Time$now = _Time_now($elm$time$Time$millisToPosix);
 var $author$project$App$Update$init = function (flags) {
 	var modelUpdated = _Utils_update(
 		$author$project$App$Model$emptyModel,
-		{searchUrl: flags.searchUrl});
+		{
+			searchUrlAndIndexName: _Utils_Tuple2(flags.searchUrl, flags.indexName)
+		});
 	var cmds = $elm$core$Platform$Cmd$batch(
 		A2(
 			$elm$core$List$append,
@@ -7055,7 +7057,9 @@ var $lukewestby$elm_http_builder$HttpBuilder$withStringBody = F2(
 			A2($elm$http$Http$stringBody, contentType, value));
 	});
 var $author$project$Backend$Item$Update$update = F3(
-	function (searchUrl, msg, model) {
+	function (_v0, msg, model) {
+		var searchUrl = _v0.a;
+		var indexName = _v0.b;
 		var noChange = A4($author$project$Backend$Types$BackendReturn, model, $elm$core$Platform$Cmd$none, $author$project$Error$Utils$noError, _List_Nil);
 		if (msg.$ === 'Fetch') {
 			var pageNumber = msg.a;
@@ -7099,7 +7103,7 @@ var $author$project$Backend$Item$Update$update = F3(
 							$lukewestby$elm_http_builder$HttpBuilder$withStringBody,
 							'application/json',
 							queryString,
-							$lukewestby$elm_http_builder$HttpBuilder$post(searchUrl + '/_search')))));
+							$lukewestby$elm_http_builder$HttpBuilder$post(searchUrl + ('/' + (indexName + '/_search')))))));
 			return A4($author$project$Backend$Types$BackendReturn, modelUpdated, cmd, $author$project$Error$Utils$noError, _List_Nil);
 		} else {
 			var pageNumber = msg.a;
@@ -7110,8 +7114,8 @@ var $author$project$Backend$Item$Update$update = F3(
 				pageNumber,
 				webData,
 				$author$project$Restful$Endpoint$toEntityId,
-				function (_v1) {
-					var itemId = _v1.a;
+				function (_v2) {
+					var itemId = _v2.a;
 					return $elm$core$Maybe$Just(itemId);
 				},
 				F3(
@@ -7119,9 +7123,9 @@ var $author$project$Backend$Item$Update$update = F3(
 						return A3($author$project$AssocList$insert, itemId, item, accum);
 					}),
 				F3(
-					function (itemId, item, _v2) {
-						var previousItemLastId = _v2.a;
-						var accum = _v2.b;
+					function (itemId, item, _v3) {
+						var previousItemLastId = _v3.a;
+						var accum = _v3.b;
 						return _Utils_Tuple2(
 							previousItemLastId,
 							A4($author$project$Backend$Utils$dictInsertAfter, previousItemLastId, itemId, item, accum));
@@ -7149,7 +7153,9 @@ var $author$project$Backend$Utils$updateSubModel = F4(
 		};
 	});
 var $author$project$Backend$Update$updateBackend = F4(
-	function (currentDate, searchUrl, msg, model) {
+	function (currentDate, _v0, msg, model) {
+		var searchUrl = _v0.a;
+		var indexName = _v0.b;
 		var noChange = A4($author$project$Backend$Types$BackendReturn, model, $elm$core$Platform$Cmd$none, $author$project$Error$Utils$noError, _List_Nil);
 		var subMsg = msg.a;
 		return A4(
@@ -7157,7 +7163,11 @@ var $author$project$Backend$Update$updateBackend = F4(
 			subMsg,
 			F2(
 				function (subMsg_, model_) {
-					return A3($author$project$Backend$Item$Update$update, searchUrl, subMsg_, model_);
+					return A3(
+						$author$project$Backend$Item$Update$update,
+						_Utils_Tuple2(searchUrl, indexName),
+						subMsg_,
+						model_);
 				}),
 			function (subCmds) {
 				return $author$project$Backend$Model$MsgItem(subCmds);
@@ -7220,7 +7230,7 @@ var $author$project$App$Update$update = F2(
 					model.backend,
 					F2(
 						function (subMsg_, subModel) {
-							return A4($author$project$Backend$Update$updateBackend, model.currentDate, model.searchUrl, subMsg_, subModel);
+							return A4($author$project$Backend$Update$updateBackend, model.currentDate, model.searchUrlAndIndexName, subMsg_, subModel);
 						}),
 					F2(
 						function (subModel, model_) {
@@ -7744,7 +7754,12 @@ _Platform_export({'Main':{'init':$author$project$Main$main(
 	A2(
 		$elm$json$Json$Decode$andThen,
 		function (searchUrl) {
-			return $elm$json$Json$Decode$succeed(
-				{searchUrl: searchUrl});
+			return A2(
+				$elm$json$Json$Decode$andThen,
+				function (indexName) {
+					return $elm$json$Json$Decode$succeed(
+						{indexName: indexName, searchUrl: searchUrl});
+				},
+				A2($elm$json$Json$Decode$field, 'indexName', $elm$json$Json$Decode$string));
 		},
 		A2($elm$json$Json$Decode$field, 'searchUrl', $elm$json$Json$Decode$string)))(0)}});}(this));

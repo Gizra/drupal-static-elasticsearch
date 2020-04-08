@@ -8,8 +8,8 @@ import Error.Utils exposing (noError)
 import Time
 
 
-updateBackend : Time.Posix -> String -> Msg -> ModelBackend -> BackendReturn Msg
-updateBackend currentDate searchUrl msg model =
+updateBackend : Time.Posix -> ( String, String ) -> Msg -> ModelBackend -> BackendReturn Msg
+updateBackend currentDate ( searchUrl, indexName ) msg model =
     let
         noChange =
             BackendReturn model Cmd.none noError []
@@ -18,6 +18,6 @@ updateBackend currentDate searchUrl msg model =
         MsgItem subMsg ->
             updateSubModel
                 subMsg
-                (\subMsg_ model_ -> Backend.Item.Update.update searchUrl subMsg_ model_)
+                (\subMsg_ model_ -> Backend.Item.Update.update ( searchUrl, indexName ) subMsg_ model_)
                 (\subCmds -> MsgItem subCmds)
                 model

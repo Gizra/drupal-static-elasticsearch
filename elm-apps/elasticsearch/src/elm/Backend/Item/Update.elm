@@ -13,8 +13,8 @@ import RemoteData exposing (RemoteData(..))
 import Restful.Endpoint exposing (toEntityId)
 
 
-update : String -> Msg -> ModelBackend -> BackendReturn Msg
-update searchUrl msg model =
+update : ( String, String ) -> Msg -> ModelBackend -> BackendReturn Msg
+update ( searchUrl, indexName ) msg model =
     let
         noChange =
             BackendReturn model Cmd.none noError []
@@ -53,7 +53,7 @@ update searchUrl msg model =
                     [ ( "from", String.fromInt ((pageNumber - 1) * 10) ) ]
 
                 cmd =
-                    HttpBuilder.post (searchUrl ++ "/_search")
+                    HttpBuilder.post (searchUrl ++ "/" ++ indexName ++ "/_search")
                         |> withStringBody "application/json" queryString
                         |> withQueryParams queryParams
                         |> withExpectJson decodeItemsDictAndCount

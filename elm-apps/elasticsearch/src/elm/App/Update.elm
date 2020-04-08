@@ -17,7 +17,7 @@ init : Flags -> ( Model, Cmd Msg )
 init flags =
     let
         modelUpdated =
-            { emptyModel | searchUrl = flags.searchUrl }
+            { emptyModel | searchUrlAndIndexName = ( flags.searchUrl, flags.indexName ) }
 
         cmds =
             fetch modelUpdated
@@ -44,7 +44,7 @@ update msg model =
             updateSubModel
                 subMsg
                 model.backend
-                (\subMsg_ subModel -> Backend.Update.updateBackend model.currentDate model.searchUrl subMsg_ subModel)
+                (\subMsg_ subModel -> Backend.Update.updateBackend model.currentDate model.searchUrlAndIndexName subMsg_ subModel)
                 (\subModel model_ -> { model_ | backend = subModel })
                 (\subCmds -> MsgBackend subCmds)
                 model

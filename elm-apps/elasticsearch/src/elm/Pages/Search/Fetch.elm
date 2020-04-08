@@ -8,8 +8,8 @@ import PaginatedData
 import Time
 
 
-fetch : String -> Backend.Model.ModelBackend -> Model -> List Backend.Model.Msg
-fetch searchUrl modelBackend model =
+fetch : ( String, String ) -> Backend.Model.ModelBackend -> Model -> List Backend.Model.Msg
+fetch _ modelBackend model =
     let
         itemsPager =
             PaginatedData.fetchPaginated
