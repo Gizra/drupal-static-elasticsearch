@@ -12,6 +12,8 @@ class RoboFile extends \Robo\Tasks
 
   const WGET_EXPORT_DIRECTORY = '.wget-export';
 
+  const ELASTICSEARCH_INDEX_PREFIX = 'elasticsearch_index_';
+
   public function staticExport() {
     $siteUrl = $this::SITE_URL;
     $wgetExportDirectory = $this::WGET_EXPORT_DIRECTORY;
@@ -26,4 +28,49 @@ class RoboFile extends \Robo\Tasks
       ->run();
 
   }
+
+  /**
+   * Makes a snapshot of the index of the site.
+   *
+   * @param string $es_url
+   *   Fully qualified URL to Elasticsearch, for example:
+   *   https://drupal-static-elasticsearch.ddev.site:9201.
+   * @param string $username
+   *   The username of the Elasticsearch admin user.
+   * @param string $password
+   *   The password of the Elasticsearch admin user.
+   * @param string $index
+   *   The index name (without the ELASTICSEARCH_INDEX_PREFIX) to take the
+   *   snapshot from. Defaults to `db_default`.
+   * @param string $uniqueIdentifier
+   *   Optional; The unique identifier reflects the state of the site. If empty
+   *   timestamp will be used.
+   *
+   * @throws \Robo\Exception\TaskException
+   */
+  public function elasticsearchSnapshot($es_url, $username, $password, $index = 'db_default', $uniqueIdentifier = null) {
+    $uniqueIdentifier = $uniqueIdentifier ?: time();
+
+    $data_readonly = <<<END
+{
+  "settings": {
+    "index.blocks.write": true
+  }
 }
+END;
+    $data_readwrite = <<<END
+{
+  "settings": {
+    "index.blocks.write": false
+  }
+}
+END;
+    $this->taskExecStack()
+      ->stopOnFail()
+      ->exec("curl -u {$username}:{$password} -X PUT {$es_url}/" . self::ELASTICSEARCH_INDEX_PREFIX . $index . "/_settings -H 'Content-Type: application/json' --data '$data_readonly'")
+      ->exec("curl -u {$username}:{$password} -X POST {$es_url}/" . self::ELASTICSEARCH_INDEX_PREFIX . $index . "/_clone/" . self::ELASTICSEARCH_INDEX_PREFIX . $index . "_" . $uniqueIdentifier)
+      ->exec("curl -u {$username}:{$password} -X PUT {$es_url}/" . self::ELASTICSEARCH_INDEX_PREFIX . $index . "/_settings -H 'Content-Type: application/json' --data '$data_readwrite'")
+      ->run();
+  }
+}
+
