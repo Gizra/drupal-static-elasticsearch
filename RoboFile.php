@@ -76,7 +76,7 @@ END;
     $this->taskExecStack()
       ->stopOnFail()
       ->exec("curl -u {$username}:{$password} -X PUT {$es_url}/" . self::ELASTICSEARCH_INDEX_PREFIX . $index . "/_settings -H 'Content-Type: application/json' --data '$data_readonly'")
-      ->exec("curl -u {$username}:{$password} -X POST {$es_url}/" . self::ELASTICSEARCH_INDEX_PREFIX . $index . "/_clone/" . self::ELASTICSEARCH_INDEX_PREFIX . "_" . $uniqueIdentifier)
+      ->exec("curl -u {$username}:{$password} -X POST {$es_url}/" . self::ELASTICSEARCH_INDEX_PREFIX . $index . "/_clone/" . self::ELASTICSEARCH_INDEX_PREFIX . $uniqueIdentifier)
       ->exec("curl -u {$username}:{$password} -X PUT {$es_url}/" . self::ELASTICSEARCH_INDEX_PREFIX . $index . "/_settings -H 'Content-Type: application/json' --data '$data_readwrite'")
       ->run();
   }
