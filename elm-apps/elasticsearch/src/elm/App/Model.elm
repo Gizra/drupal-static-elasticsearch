@@ -32,6 +32,7 @@ type Msg
 
 type alias Flags =
     { searchUrl : String
+    , indexName : String
     }
 
 
@@ -41,7 +42,7 @@ type alias Model =
     , language : Language
     , activePage : Page
     , currentDate : Time.Posix
-    , searchUrl : String
+    , searchUrlAndIndexName : ( String, String )
     , pageSearch : Pages.Search.Model.Model
     }
 
@@ -58,6 +59,6 @@ emptyModel =
     , language = English
     , activePage = Search
     , currentDate = Time.millisToPosix 0
-    , searchUrl = ""
+    , searchUrlAndIndexName = ( "", "" )
     , pageSearch = Pages.Search.Model.emptyModel
     }

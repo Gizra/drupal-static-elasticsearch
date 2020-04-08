@@ -25,7 +25,7 @@ fetch : Model -> List Msg
 fetch model =
     case model.activePage of
         Search ->
-            Pages.Search.Fetch.fetch model.searchUrl model.backend model.pageSearch
+            Pages.Search.Fetch.fetch model.searchUrlAndIndexName model.backend model.pageSearch
                 |> List.map (\subMsg -> MsgBackend subMsg)
 
         _ ->

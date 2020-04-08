@@ -7,6 +7,10 @@
 
   const searchUrl = 'https://drupal-static-elasticsearch.ddev.site:9201';
 
+  // This is the default index we search. When we create a static site, Robo
+  // will rake care of replacing the index name with the clone.
+  const indexName = 'elasticsearch_index_db_default';
+
   /**
    * Add the Elm app.
    */
@@ -29,7 +33,8 @@
         var page = appSettings.page;
 
         const app = Elm.Main.init({node: node, flags: {
-          searchUrl : searchUrl
+          searchUrl : searchUrl,
+          indexName : indexName
         }});
         switch (page) {
           case 'elasticsearch':

@@ -24,9 +24,17 @@ class RoboFile extends \Robo\Tasks
 
     $this->taskExecStack()
       ->stopOnFail()
-      ->exec("find $wgetExportDirectory -type f -exec sed -i -e \"s/\/index.html/\//g\" {} \;")
+      ->exec("find $wgetExportDirectory -type f -name '*.html' -exec sed -i -e \"s/\/index.html/\//g\" {} \;")
       ->run();
 
+    $uniqueIdentifier = time();
+
+    $this->elasticsearchSnapshot($uniqueIdentifier, 'https://drupal-static-elasticsearch.ddev.site:9201');
+
+    $this->taskExecStack()
+      ->stopOnFail()
+      ->exec("find $wgetExportDirectory -type f -name '*.js' -exec sed -i -e \"s/const indexName = 'elasticsearch_index_db_default';/const indexName = 'elasticsearch_index_$uniqueIdentifier';/g\" {} \;")
+      ->run();
   }
 
   /**
@@ -36,9 +44,9 @@ class RoboFile extends \Robo\Tasks
    *   Fully qualified URL to Elasticsearch, for example:
    *   https://drupal-static-elasticsearch.ddev.site:9201.
    * @param string $username
-   *   The username of the Elasticsearch admin user.
+   *   The username of the Elasticsearch admin user. Defaults to empty string.
    * @param string $password
-   *   The password of the Elasticsearch admin user.
+   *   The password of the Elasticsearch admin user. Defaults to empty string.
    * @param string $index
    *   The index name (without the ELASTICSEARCH_INDEX_PREFIX) to take the
    *   snapshot from. Defaults to `db_default`.
@@ -48,7 +56,7 @@ class RoboFile extends \Robo\Tasks
    *
    * @throws \Robo\Exception\TaskException
    */
-  public function elasticsearchSnapshot($es_url, $username, $password, $index = 'db_default', $uniqueIdentifier = null) {
+  public function elasticsearchSnapshot($uniqueIdentifier, $es_url, $username = '', $password= '', $index = 'db_default') {
     $uniqueIdentifier = $uniqueIdentifier ?: time();
 
     $data_readonly = <<<END
@@ -68,7 +76,7 @@ END;
     $this->taskExecStack()
       ->stopOnFail()
       ->exec("curl -u {$username}:{$password} -X PUT {$es_url}/" . self::ELASTICSEARCH_INDEX_PREFIX . $index . "/_settings -H 'Content-Type: application/json' --data '$data_readonly'")
-      ->exec("curl -u {$username}:{$password} -X POST {$es_url}/" . self::ELASTICSEARCH_INDEX_PREFIX . $index . "/_clone/" . self::ELASTICSEARCH_INDEX_PREFIX . $index . "_" . $uniqueIdentifier)
+      ->exec("curl -u {$username}:{$password} -X POST {$es_url}/" . self::ELASTICSEARCH_INDEX_PREFIX . $index . "/_clone/" . self::ELASTICSEARCH_INDEX_PREFIX . "_" . $uniqueIdentifier)
       ->exec("curl -u {$username}:{$password} -X PUT {$es_url}/" . self::ELASTICSEARCH_INDEX_PREFIX . $index . "/_settings -H 'Content-Type: application/json' --data '$data_readwrite'")
       ->run();
   }
