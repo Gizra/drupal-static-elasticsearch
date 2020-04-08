@@ -14,7 +14,7 @@ class RoboFile extends \Robo\Tasks
 
   const ELASTICSEARCH_INDEX_PREFIX = 'elasticsearch_index_';
 
-  public function staticExport() {
+  public function snapshotCreate() {
     $siteUrl = $this::SITE_URL;
     $wgetExportDirectory = $this::WGET_EXPORT_DIRECTORY;
 
