@@ -1,0 +1,21 @@
+uuid: f9758c64-7e1c-4ae0-9813-0db335ef91d1
+langcode: en
+status: true
+dependencies:
+  module:
+    - server_elm
+  theme:
+    - claro
+id: elmapplicationblock
+theme: claro
+region: content
+weight: 0
+provider: null
+plugin: server_elm_application
+settings:
+  id: server_elm_application
+  label: 'Article Search with Elasticsearch'
+  provider: server_elm
+  label_display: visible
+  application_type: elasticsearch
+visibility: {  }

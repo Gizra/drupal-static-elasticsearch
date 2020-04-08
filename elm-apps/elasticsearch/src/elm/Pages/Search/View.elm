@@ -66,9 +66,16 @@ viewItems language modelBackend dataAndPager model =
                 (PaginatedData.getItemsByPager () dataAndPager model.page
                     |> Dict.toList
                     |> List.map
-                        (\( itemId, item ) ->
+                        (\( _, item ) ->
+                            let
+                                -- Remove the `index.html` suffix, so we'd get clean
+                                -- urls.
+                                -- @todo: String.replace "/index.html" "/" item.url
+                                itemUrl =
+                                    String.replace "index.html" "" item.url
+                            in
                             li []
-                                [ a [ href <| "/node/" ++ String.fromInt (fromEntityId itemId) ] [ text item.label ]
+                                [ a [ href itemUrl ] [ text <| item.label ]
                                 ]
                         )
                 )

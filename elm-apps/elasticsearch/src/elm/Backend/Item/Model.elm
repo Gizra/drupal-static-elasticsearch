@@ -15,6 +15,7 @@ import RemoteData exposing (WebData)
 type alias Item =
     { id : ItemId
     , label : String
+    , url : String
     }
 
 

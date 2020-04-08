@@ -5783,9 +5783,9 @@ var $author$project$Backend$Item$Model$HandleFetch = F2(
 	function (a, b) {
 		return {$: 'HandleFetch', a: a, b: b};
 	});
-var $author$project$Backend$Item$Model$Item = F2(
-	function (id, label) {
-		return {id: id, label: label};
+var $author$project$Backend$Item$Model$Item = F3(
+	function (id, label, url) {
+		return {id: id, label: label, url: url};
 	});
 var $elm$core$String$replace = F3(
 	function (before, after, string) {
@@ -5836,13 +5836,18 @@ var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$requiredAt = F3(
 var $author$project$Backend$Item$Decoder$decodeItem = A3(
 	$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$requiredAt,
 	_List_fromArray(
-		['_source', 'title', '0']),
+		['_source', 'url', '0']),
 	$elm$json$Json$Decode$string,
 	A3(
-		$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
-		'_id',
-		$author$project$Backend$Item$Decoder$decodeEntityIdFromString,
-		$elm$json$Json$Decode$succeed($author$project$Backend$Item$Model$Item)));
+		$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$requiredAt,
+		_List_fromArray(
+			['_source', 'title', '0']),
+		$elm$json$Json$Decode$string,
+		A3(
+			$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+			'_id',
+			$author$project$Backend$Item$Decoder$decodeEntityIdFromString,
+			$elm$json$Json$Decode$succeed($author$project$Backend$Item$Model$Item))));
 var $elm$json$Json$Decode$int = _Json_decodeInt;
 var $elm$json$Json$Decode$list = _Json_decodeList;
 var $author$project$Backend$Item$Decoder$decodeItemsDictAndCount = A3(
@@ -7437,10 +7442,6 @@ var $author$project$Pages$Search$Model$SetPagerPage = function (a) {
 };
 var $elm$html$Html$nav = _VirtualDom_node('nav');
 var $elm$html$Html$a = _VirtualDom_node('a');
-var $author$project$Restful$Endpoint$fromEntityId = function (_v0) {
-	var a = _v0.a;
-	return a;
-};
 var $author$project$PaginatedData$getItemsByPager = F3(
 	function (identifier, _v0, pageProperty) {
 		var data = _v0.data;
@@ -7555,8 +7556,8 @@ var $author$project$Pages$Search$View$viewItems = F4(
 					A2(
 						$elm$core$List$map,
 						function (_v0) {
-							var itemId = _v0.a;
 							var item = _v0.b;
+							var itemUrl = A3($elm$core$String$replace, 'index.html', '', item.url);
 							return A2(
 								$elm$html$Html$li,
 								_List_Nil,
@@ -7566,9 +7567,7 @@ var $author$project$Pages$Search$View$viewItems = F4(
 										$elm$html$Html$a,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$href(
-												'/node/' + $elm$core$String$fromInt(
-													$author$project$Restful$Endpoint$fromEntityId(itemId)))
+												$elm$html$Html$Attributes$href(itemUrl)
 											]),
 										_List_fromArray(
 											[

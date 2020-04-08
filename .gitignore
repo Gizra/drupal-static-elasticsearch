@@ -33,3 +33,5 @@ pantheon_config.sh
 .sass-cache
 .editorconfig
 .gitattributes
+
+.wget-export
