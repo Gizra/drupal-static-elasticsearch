@@ -23,10 +23,14 @@ then execute the following, and re-try installation steps.
 
 ## Create Site Snapshot
 
+    ./vendor/bin/robo snapshot:create
+    
+Command will:
+
 1. Clear cache.
 1. Export Static site.
 1. Create Elasticsearch index clone with a unique identifier (timestamp).
 1. Add the new Elasticsearch index url to the JS file of the Elm app.
 
-    ./vendor/bin/robo snapshot:create
+
 
