@@ -11,7 +11,6 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Component\Utility\Html;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\permanent_entities\Entity\PermanentEntityInterface;
 
 /**
  * Provides the "Elm application" block.
@@ -110,8 +109,6 @@ class ElmAppBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $application_type = $this->configuration['application_type'];
 
     if ($application_type == 'elasticsearch') {
-      $library = ['server_elm/elasticsearch'];
-
       return [
         '#attached' => [
           'drupalSettings' => [
@@ -122,7 +119,7 @@ class ElmAppBlock extends BlockBase implements ContainerFactoryPluginInterface {
             ],
           ],
           // @todo: Why do we have to load it via server_elm_preprocess_block()?
-          // 'library' => $library,
+          // 'library' => ['server_elm/elasticsearch'],
         ],
         '#markup' => "<div id=\"$app_id\"></div>",
       ];
@@ -135,4 +132,5 @@ class ElmAppBlock extends BlockBase implements ContainerFactoryPluginInterface {
   protected function blockAccess(AccountInterface $account) {
     return AccessResult::allowed();
   }
+
 }

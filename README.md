@@ -1,6 +1,6 @@
-# Drupal 8 Starter
+# Drupal Static, with Elasticsearch
 
-Starter repo for Drupal 8 development
+Based on top of [Gizra/drupal-starter](https://github.com/Gizra/drupal-starter)
 
 ## Requirements
 
@@ -12,19 +12,10 @@ Starter repo for Drupal 8 development
     cp .ddev/config.local.yaml.example .ddev/config.local.yaml
     ddev restart
 
-
-### Troubleshooting
-
-If you had a previous installation of this repo, and have an error similar to `composer [install] failed, composer command failed: failed to load any docker-compose.*y*l files in /XXX/multi-repo/.ddev: err=<nil>. stderr=`
-
-then execute the following, and re-try installation steps.
-
-    ddev rm --unlist
-
 ## Create Site Snapshot
 
     ./vendor/bin/robo snapshot:create
-    
+
 Command will:
 
 1. Clear cache.
