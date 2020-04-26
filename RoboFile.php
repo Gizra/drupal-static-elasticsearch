@@ -54,6 +54,10 @@ class RoboFile extends \Robo\Tasks
       ->stopOnFail()
       ->exec("find $wgetExportDirectory -type f -name '*.js' -exec sed -i -e \"s/const indexName = 'elasticsearch_index_db_default';/const indexName = 'elasticsearch_index_$uniqueIdentifier';/g\" {} \;")
       ->run();
+
+
+    $this->yell("Snapshot created, you can view it locally by executing:                           ");
+    $this->yell("ddev . npx http-server ../.wget-export/drupal-static-elasticsearch.ddev.site+4443/");
   }
 
   /**

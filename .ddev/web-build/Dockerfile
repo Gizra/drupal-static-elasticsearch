@@ -20,3 +20,6 @@ RUN chmod 666 /usr/local/bin/CodeSniffer.conf
 RUN chmod -R ugo+rw $COMPOSER_HOME
 # Now turn it off, because ordinary users will want to be using the default
 ENV COMPOSER_HOME=""
+
+# Add Http-Server so it is easier to view static files
+RUN npm install http-server -g
