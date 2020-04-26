@@ -31,7 +31,8 @@ type Msg
 
 
 type alias Flags =
-    { searchUrl : String
+    { isStatic : Bool
+    , searchUrl : String
     , indexName : String
     }
 
@@ -44,6 +45,7 @@ type alias Model =
     , currentDate : Time.Posix
     , searchUrlAndIndexName : ( String, String )
     , pageSearch : Pages.Search.Model.Model
+    , isStatic : Bool
     }
 
 
@@ -61,4 +63,5 @@ emptyModel =
     , currentDate = Time.millisToPosix 0
     , searchUrlAndIndexName = ( "", "" )
     , pageSearch = Pages.Search.Model.emptyModel
+    , isStatic = False
     }

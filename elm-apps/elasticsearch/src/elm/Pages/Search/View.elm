@@ -15,8 +15,8 @@ import Restful.Endpoint exposing (fromEntityId)
 import Utils.Html exposing (emptyNode)
 
 
-view : Language -> ModelBackend -> Model -> Html Msg
-view language modelBackend model =
+view : Bool -> Language -> ModelBackend -> Model -> Html Msg
+view isStatic language modelBackend model =
     let
         existing =
             Dict.get () modelBackend.items
@@ -25,7 +25,7 @@ view language modelBackend model =
     case existing of
         Success dataAndPager ->
             div []
-                [ viewItems language modelBackend dataAndPager model
+                [ viewItems isStatic language modelBackend dataAndPager model
                 , nav [ class "pager" ]
                     [ viewPager () dataAndPager model.page (\pageNumber -> SetPagerPage pageNumber)
                     ]
@@ -36,7 +36,8 @@ view language modelBackend model =
 
 
 viewItems :
-    Language
+    Bool
+    -> Language
     -> ModelBackend
     -> PaginatedData.PaginatedData ItemId Item
     ->
@@ -44,7 +45,7 @@ viewItems :
             | page : Dict () Int
         }
     -> Html Msg
-viewItems language modelBackend dataAndPager model =
+viewItems isStatic language modelBackend dataAndPager model =
     let
         currentPage =
             Dict.get () model.page
@@ -68,11 +69,15 @@ viewItems language modelBackend dataAndPager model =
                     |> List.map
                         (\( _, item ) ->
                             let
-                                -- Remove the `index.html` suffix, so we'd get clean
-                                -- urls.
-                                -- @todo: String.replace "/index.html" "/" item.url
                                 itemUrl =
-                                    String.replace "index.html" "" item.url
+                                    if isStatic then
+                                        -- Remove the `index.html` suffix, so we'd get clean
+                                        -- urls.
+                                        String.replace "index.html" "" item.url
+
+                                    else
+                                        -- We are in Drupal context, so keep URL as-is.
+                                        item.url
                             in
                             li []
                                 [ a [ href itemUrl ] [ text <| item.label ]

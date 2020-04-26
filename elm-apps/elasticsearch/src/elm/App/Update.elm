@@ -17,7 +17,10 @@ init : Flags -> ( Model, Cmd Msg )
 init flags =
     let
         modelUpdated =
-            { emptyModel | searchUrlAndIndexName = ( flags.searchUrl, flags.indexName ) }
+            { emptyModel
+                | searchUrlAndIndexName = ( flags.searchUrl, flags.indexName )
+                , isStatic = flags.isStatic
+            }
 
         cmds =
             fetch modelUpdated

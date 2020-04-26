@@ -22,6 +22,7 @@ view model =
                 [ errorElement
                 , Html.map MsgPageSearch <|
                     Pages.Search.View.view
+                        model.isStatic
                         model.language
                         model.backend
                         model.pageSearch
