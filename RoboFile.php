@@ -8,8 +8,6 @@
 class RoboFile extends \Robo\Tasks
 {
 
-
-
   const OPTIMIZED_FORMATTER = 'ScssPhp\ScssPhp\Formatter\Crunched';
 
   const DEV_FORMATTER = 'ScssPhp\ScssPhp\Formatter\Expanded';
@@ -47,9 +45,15 @@ class RoboFile extends \Robo\Tasks
     // We don't stop on fail, as we get error code 8 from wget.
     $this->_exec("wget --directory-prefix=$wgetExportDirectory --mirror --page-requisites --convert-links --adjust-extension --span-hosts --restrict-file-names=windows --no-parent --domains=$domain $siteUrl");
 
+    // Remove `index.html` from a URL. That is `/content/foo/index.html` becomes
+    // `/content/foo`
     $this->taskExecStack()
       ->stopOnFail()
       ->exec("find $wgetExportDirectory -type f -name '*.html' -exec sed -i -e \"s/\/index.html/\//g\" {} \;")
+
+      // Change in `elm.js` a variable to let Elm app know we're under static
+      // context.
+      ->exec("find $wgetExportDirectory/*/sites/default/files/js -type f -name '*.js' -exec sed -i -e \"s/const isElmRunningInStaticContext = false;/const isElmRunningInStaticContext = true;/g\" {} \;")
       ->run();
 
     $uniqueIdentifier = time();
@@ -181,8 +185,6 @@ END;
     else {
       $this->_copyDir(self::THEME_BASE . '/src/js', self::THEME_BASE . '/dist/js');
     }
-
-    return;
 
     // Images - Copy everything first.
     $this->_copyDir(self::THEME_BASE . '/src/images', self::THEME_BASE . '/dist/images');
