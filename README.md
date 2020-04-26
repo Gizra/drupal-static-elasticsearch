@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/Gizra/drupal-static-elasticsearch.svg?branch=master)](https://travis-ci.com/Gizra/drupal-static-elasticsearch)
+
 # Drupal Static, with Elasticsearch
 
 Based on top of [Gizra/drupal-starter](https://github.com/Gizra/drupal-starter)
