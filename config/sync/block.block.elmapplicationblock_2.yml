@@ -1,0 +1,21 @@
+uuid: 6cc290fb-ed89-40e0-afee-a6e43de73eb8
+langcode: en
+status: true
+dependencies:
+  module:
+    - server_elm
+  theme:
+    - bartik
+id: elmapplicationblock_2
+theme: bartik
+region: sidebar_first
+weight: 0
+provider: null
+plugin: server_elm_application
+settings:
+  id: server_elm_application
+  label: 'Article Search with Elasticsearch'
+  provider: server_elm
+  label_display: visible
+  application_type: elasticsearch
+visibility: {  }

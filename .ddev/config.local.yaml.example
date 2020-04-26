@@ -5,4 +5,10 @@ hooks:
 
     # Generate Articles with Devel generate module.
     - exec: drush devel-generate-content 50 0 --types=article
+
+    # Clear index in case we had a previous installation, and index content.
+    - exec: drush search-api:clear
+    - exec: drush search-api:index
+
+    # Get an admin link.
     - exec: drush uli
