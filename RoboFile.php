@@ -55,9 +55,16 @@ class RoboFile extends \Robo\Tasks
       ->exec("find $wgetExportDirectory -type f -name '*.js' -exec sed -i -e \"s/const indexName = 'elasticsearch_index_db_default';/const indexName = 'elasticsearch_index_$uniqueIdentifier';/g\" {} \;")
       ->run();
 
+    $httpServerCommand = 'npx http-server ../.wget-export/drupal-static-elasticsearch.ddev.site+4443/';
 
-    $this->yell("Snapshot created, you can view it locally by executing:                           ");
-    $this->yell("ddev . npx http-server ../.wget-export/drupal-static-elasticsearch.ddev.site+4443/");
+    $runHttpServerConfirm = $this->confirm('Run local server to view newly created static site?');
+    if ($runHttpServerConfirm) {
+      $this->_exec($httpServerCommand);
+    }
+    else {
+      $this->yell("Snapshot created, you can view it locally by executing:                           ");
+      $this->yell("ddev . npx http-server ../.wget-export/drupal-static-elasticsearch.ddev.site+4443/");
+    }
   }
 
   /**
