@@ -38,3 +38,6 @@ echo "Install Drupal."
 ddev composer install
 cp .ddev/config.local.yaml.example .ddev/config.local.yaml
 ddev restart
+
+# Logs in case ddev could not start.
+ddev logs -s web
