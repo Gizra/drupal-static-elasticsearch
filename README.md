@@ -14,7 +14,7 @@ Based on top of [Gizra/drupal-starter](https://github.com/Gizra/drupal-starter)
 
 ## Create Site Snapshot
 
-    ./vendor/bin/robo snapshot:create
+    ddev robo snapshot:create
 
 Command will:
 

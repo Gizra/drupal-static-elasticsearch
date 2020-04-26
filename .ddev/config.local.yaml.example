@@ -4,5 +4,5 @@ hooks:
     - exec: drush site-install server -y --existing-config
 
     # Generate Articles with Devel generate module.
-    - exec: ddev . drush devel-generate-content 50 0 --types=article
+    - exec: drush devel-generate-content 50 0 --types=article
     - exec: drush uli
