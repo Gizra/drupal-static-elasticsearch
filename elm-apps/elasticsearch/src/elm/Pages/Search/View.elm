@@ -114,10 +114,14 @@ viewPager identifier { pager } pageProperty func =
                         let
                             aAttr =
                                 if pageNumber == currentPage then
-                                    [ action "javascript:void(0);" ]
+                                    [ action "javascript:void(0);"
+                                    , href "#"
+                                    ]
 
                                 else
-                                    [ onClick <| func pageNumber ]
+                                    [ onClick <| func pageNumber
+                                    , href "#"
+                                    ]
                         in
                         li
                             [ classList

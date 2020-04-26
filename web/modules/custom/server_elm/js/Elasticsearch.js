@@ -7609,11 +7609,13 @@ var $author$project$Pages$Search$View$viewPager = F4(
 					function (pageNumber) {
 						var aAttr = _Utils_eq(pageNumber, currentPage) ? _List_fromArray(
 							[
-								$elm$html$Html$Attributes$action('javascript:void(0);')
+								$elm$html$Html$Attributes$action('javascript:void(0);'),
+								$elm$html$Html$Attributes$href('#')
 							]) : _List_fromArray(
 							[
 								$elm$html$Html$Events$onClick(
-								func(pageNumber))
+								func(pageNumber)),
+								$elm$html$Html$Attributes$href('#')
 							]);
 						return A2(
 							$elm$html$Html$li,
