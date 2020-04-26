@@ -37,7 +37,10 @@ class RoboFile extends \Robo\Tasks
     $siteUrl = $this::SITE_URL;
     $wgetExportDirectory = $this::WGET_EXPORT_DIRECTORY;
 
-    $this->_exec("ddev . drush cr");
+    $this->_exec("drush cr");
+
+    $this->_cleanDir($wgetExportDirectory);
+
     // We don't stop on fail, as we get error code 8.
     $this->_exec("wget --directory-prefix=$wgetExportDirectory --mirror --page-requisites --convert-links --adjust-extension --span-hosts --restrict-file-names=windows --no-parent $siteUrl");
 
@@ -54,6 +57,17 @@ class RoboFile extends \Robo\Tasks
       ->stopOnFail()
       ->exec("find $wgetExportDirectory -type f -name '*.js' -exec sed -i -e \"s/const indexName = 'elasticsearch_index_db_default';/const indexName = 'elasticsearch_index_$uniqueIdentifier';/g\" {} \;")
       ->run();
+
+    $httpServerCommand = 'npx http-server /var/www/html/.wget-export/drupal-static-elasticsearch.ddev.site+4443/';
+
+    $runHttpServerConfirm = $this->confirm('Run local server to view newly created static site?');
+    if ($runHttpServerConfirm) {
+      $this->_exec($httpServerCommand);
+    }
+    else {
+      $this->yell("Snapshot created, you can view it locally by executing:                           ");
+      $this->yell("ddev . npx http-server ../.wget-export/drupal-static-elasticsearch.ddev.site+4443/");
+    }
   }
 
   /**

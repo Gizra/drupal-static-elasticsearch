@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/Gizra/drupal-static-elasticsearch.svg?branch=master)](https://travis-ci.com/Gizra/drupal-static-elasticsearch)
+
 # Drupal Static, with Elasticsearch
 
 Based on top of [Gizra/drupal-starter](https://github.com/Gizra/drupal-starter)
@@ -12,7 +14,9 @@ Based on top of [Gizra/drupal-starter](https://github.com/Gizra/drupal-starter)
     cp .ddev/config.local.yaml.example .ddev/config.local.yaml
     ddev restart
 
-## Create Site Snapshot
+## Site Snapshot
+
+### Create
 
     ddev robo snapshot:create
 
@@ -23,5 +27,11 @@ Command will:
 1. Create Elasticsearch index clone with a unique identifier (timestamp).
 1. Add the new Elasticsearch index url to the JS file of the Elm app.
 
+### View
 
+As the Robo command will indicate, you can view the static site by running:
 
+    ddev . npx http-server ../.wget-export/drupal-static-elasticsearch.ddev.site+4443/
+
+This will start a local http-server, and indicate the URL you can open to view
+the site.
