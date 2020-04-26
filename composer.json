@@ -20,8 +20,9 @@
         "drupal/core-recommended": "^8.8",
         "drupal/devel": "^2.1",
         "drupal/pathauto": "^1.6",
-        "drush/drush": "^10.2",
-        "nodespark/des-connector": "dev-master"
+        "drupal/search_api": "^1.16",
+        "drupal/token": "^1.7",
+        "drush/drush": "^10.2"
     },
     "require-dev": {
         "consolidation/robo": "^1.0.0",
