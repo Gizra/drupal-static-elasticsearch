@@ -21,5 +21,8 @@ RUN chmod -R ugo+rw $COMPOSER_HOME
 # Now turn it off, because ordinary users will want to be using the default
 ENV COMPOSER_HOME=""
 
+# Install Elm.
+RUN npm install elm@latest-0.19.1 -g
+
 # Add Http-Server so it is easier to view static files
 RUN npm install http-server -g
