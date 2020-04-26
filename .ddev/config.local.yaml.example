@@ -7,7 +7,7 @@ hooks:
     - exec: drush devel-generate-content 50 0 --types=article
 
     # Clear index in case we had a previous installation, and index content.
-    - exec: drush search-api:clear
+    - exec: drush search-api:clear default
     - exec: drush search-api:index
 
     # Get an admin link.
