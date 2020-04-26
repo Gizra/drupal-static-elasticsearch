@@ -18,7 +18,7 @@ class RoboFile extends \Robo\Tasks {
   /**
    * The compilation command to run.
    */
-  const COMPILE_CMD = 'elm make ./src/elm/Main.elm --output=../../web/modules/custom/server_elm/js/Main.js';
+  const COMPILE_CMD = 'elm make ./src/elm/Main.elm --output=../../web/modules/custom/server_elm/js/Elasticsearch.js';
 
   /**
    * Compile the app; On success ...

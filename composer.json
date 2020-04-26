@@ -16,12 +16,16 @@
     ],
     "require": {
         "composer/installers": "^1.2",
+        "drupal/config_split": "^1.4",
         "drupal/core-composer-scaffold": "^8.8",
         "drupal/core-recommended": "^8.8",
         "drupal/devel": "^2.1",
+        "drupal/elasticsearch_connector": "^7.0@alpha",
         "drupal/pathauto": "^1.6",
+        "drupal/search_api": "^1.16",
+        "drupal/token": "^1.7",
         "drush/drush": "^10.2",
-        "nodespark/des-connector": "dev-master"
+        "nodespark/des-connector": "dev-master as 7.x-dev"
     },
     "require-dev": {
         "consolidation/robo": "^1.0.0",

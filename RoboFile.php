@@ -37,12 +37,15 @@ class RoboFile extends \Robo\Tasks
     $siteUrl = $this::SITE_URL;
     $wgetExportDirectory = $this::WGET_EXPORT_DIRECTORY;
 
+    $parse = parse_url($siteUrl);
+    $domain = $parse['host'];
+
     $this->_exec("drush cr");
 
     $this->_cleanDir($wgetExportDirectory);
 
-    // We don't stop on fail, as we get error code 8.
-    $this->_exec("wget --directory-prefix=$wgetExportDirectory --mirror --page-requisites --convert-links --adjust-extension --span-hosts --restrict-file-names=windows --no-parent $siteUrl");
+    // We don't stop on fail, as we get error code 8 from wget.
+    $this->_exec("wget --directory-prefix=$wgetExportDirectory --mirror --page-requisites --convert-links --adjust-extension --span-hosts --restrict-file-names=windows --no-parent --domains=$domain $siteUrl");
 
     $this->taskExecStack()
       ->stopOnFail()

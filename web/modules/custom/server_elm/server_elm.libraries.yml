@@ -2,7 +2,7 @@ elm-application:
   version: 1.0
   js:
     js/elm.js: {}
-    js/Main.js: {}
+    js/Elasticsearch.js: {}
   dependencies:
     - core/jquery
     - core/jquery.once
