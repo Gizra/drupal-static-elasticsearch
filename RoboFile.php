@@ -56,8 +56,6 @@ class RoboFile extends \Robo\Tasks
       ->exec("find $wgetExportDirectory/*/sites/default/files/js -type f -name '*.js' -exec sed -i -e \"s/const isElmRunningInStaticContext = false;/const isElmRunningInStaticContext = true;/g\" {} \;")
       ->run();
 
-    return;
-
     $uniqueIdentifier = time();
 
     $this->elasticsearchSnapshot($uniqueIdentifier, 'https://drupal-static-elasticsearch.ddev.site:9201');
