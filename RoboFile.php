@@ -40,6 +40,7 @@ class RoboFile extends \Robo\Tasks
 
     $this->_exec("drush cr");
 
+    $this->_mkdir($wgetExportDirectory);
     $this->_cleanDir($wgetExportDirectory);
 
     // We don't stop on fail, as we get error code 8 from wget.
