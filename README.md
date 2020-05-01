@@ -3,7 +3,8 @@
 # Drupal Static, with Elasticsearch
 
 Read [blog post](https://www.gizra.com/content/drupal-static-elasticsearch/).
-Based on top of [Gizra/drupal-starter](https://github.com/Gizra/drupal-starter).
+
+Scaffolded from [Gizra/drupal-starter](https://github.com/Gizra/drupal-starter).
 
 ## Requirements
 
