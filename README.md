@@ -10,6 +10,8 @@ Scaffolded from [Gizra/drupal-starter](https://github.com/Gizra/drupal-starter).
 
 * [DDEV](https://ddev.readthedocs.io/en/stable/)
 
+Note that the demo app assumes you also have [mkcert](https://ddev.readthedocs.io/en/stable/#linux-mkcert-install-additional-instructions) installed as part of ddev.
+
 ## Installation
 
     ddev composer install
