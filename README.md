@@ -2,7 +2,7 @@
 
 # Drupal Static, with Elasticsearch
 
-Read [blog post](https://www.gizra.com/content/drupal-static-elasticsearch/).
+Read the [blog post](https://www.gizra.com/content/drupal-static-elasticsearch/).
 
 Scaffolded from [Gizra/drupal-starter](https://github.com/Gizra/drupal-starter).
 
